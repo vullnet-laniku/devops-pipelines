@@ -1,0 +1,25 @@
+name: CI pipeline ###emri 
+
+on:              ### eventet qe do te aktivizojne pipeline-in
+  push:
+    branches: [ main ] ### pipeline do te aktivizohet kur te behet push ne branch-in main
+
+jobs:           ### jobs qe do te ekzekutohen, grup i hapave qe behen run se bashku, si kontejner ku nje grup i actions behet run ne sekuence te njejte
+  build: 
+    runs-on: ubuntu-latest ### sistemi operativ ku do te ekzekutohet job-i
+
+    steps:         ### hapat qe do te ekzekutohen ne job
+      - name: Checkout code ### emri i hapit
+        uses: actions/checkout@v5 ### action qe do te perdoret, ne kete rast checkout action per te klonuar kodin nga repositori. po perdorim nje built in action nga GitHub, versioni 5
+
+      - name: Set up Node.js ### emri i hapit
+        uses: actions/setup-node@v3 ### action per te setup-uar Node.js mjedisin
+        with:
+          node-version: '16' ### versioni i Node.js qe do te setup-uar
+
+      - name: Install dependencies ### emri i hapit
+        run: npm install ### komanda per te instaluar varshmerite e projektit
+
+      - name: Run tests ### emri i hapit
+        run: npm test ### komanda per te ekzekutuar testet e projektit
+
